@@ -22,7 +22,7 @@ class DriveShim(driveTrainType: DriveTrainType, private val constraints: Constra
 
     private val accelConstraint = ProfileAccelConstraint(-constraints.maxAccel, constraints.maxAccel)
 
-    fun actionBuilder(startPose: Pose2d): TrajectoryActionBuilder {
+    fun actionBuilder(startPose: Pose2d, beginEndVel: Double = 0.0): TrajectoryActionBuilder {
         return TrajectoryActionBuilder(
             ::TurnActionStub,
             ::TrajectoryActionStub,
@@ -32,7 +32,7 @@ class DriveShim(driveTrainType: DriveTrainType, private val constraints: Constra
                     0.25, 0.1, 1e-2
                 )
             ),
-            startPose, 0.0,
+            startPose, beginEndVel,
             TurnConstraints(
                 constraints.maxAngVel,
                 -constraints.maxAngAccel,
